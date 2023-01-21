@@ -61,6 +61,9 @@ function area($title, $connect_db, $saved_areas, $reg, $a) {
             <div class="areas" id="areas">
             </div>
         </div>
+        <div id="res">
+
+        </div>
     </form>
 
 </div>
@@ -89,6 +92,8 @@ include 'connect_db.php';
 
 session_start();
 
+foreach ($_POST as $k => $v) echo $k.' => '.$v.'<br>';
+
 $a = 1;
 $title = 'Picnic Trip - Area selection';
 
@@ -109,7 +114,9 @@ if (isset($_SESSION['uid'])) {
         if ($comment == null) $comment = '';
         $comment = str_replace(chr(2), "\\'", $comment);
         $comment = str_replace(chr(3), "\\`", $comment);
-        $saved_areas .= "'".$el['area_id']."' : `".$comment."`";
+
+        $saved_areas .= "'".$el['area_id']."' : `".$comment."`,
+        ";
     }
     $saved_areas .= "
             }
@@ -120,7 +127,7 @@ if (isset($_SESSION['uid'])) {
 if (isset($_POST['save_area'])) {
     $objstr = str_replace("''''", '"', $_POST['save_area']);
     $_SESSION['save_area'] = $objstr;
-    // header('Location: history.php');
+    header('Location: history.php');
 }
 
 $db = file_get_contents('data1.json');

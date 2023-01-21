@@ -117,7 +117,7 @@ else if (isset($_GET['out']) || isset($_GET['guest'])) {
     }
 }
 
-foreach($_SESSION as $k => $v) echo $k.' => '.$v.'<br>';
+//foreach($_SESSION as $k => $v) echo $k.' => '.$v.'<br>';
 
 echo index($title, $error_message);
 

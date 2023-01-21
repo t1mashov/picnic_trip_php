@@ -25,9 +25,6 @@ function get_area_item(id, comment) {
     <div class="area-item area-item-hidden" id="`+id+`" onclick="show_hide('`+id+`')">
         <div class="top">
             <p class="name-txt"><b>`+db[id]['Address']+', '+db[id]['NameWinter']+`</b></p>
-            <div class="trash" onclick="">
-                <img src="`+bin+`">
-            </div>
         </div>
         <div class="details-wrap hidden">
             <div class="desc">
@@ -37,10 +34,12 @@ function get_area_item(id, comment) {
                 <p>`+db[id]['SurfaceTypeWinter']+`</p>
                 <p>Телефон: `+db[id]['HelpPhone']+`</p>
                 <p>Сайт: <a href='`+db[id]['WebSite']+`'>`+db[id]['WebSite']+`</a></p>
+                <div class="trash" onclick="">
+                    <img class="trash-img" src="`+bin+`">
+                </div>
             </div>
             <div class="comment">
             <form method="post">
-                `+csrf+`
                 <p>Ваш комментарий:</p>
                 <textarea name="comment" class="comment-ta">`+comment+`</textarea>
                 <input type="hidden" name="id" value="`+id+`">

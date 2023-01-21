@@ -5,6 +5,10 @@ function items($title, $items, $my_items) {
     $main = '
     <script src="js/items.js"></script>
     <form method="post">
+        <p class="learn-text">
+            Хорошо продумайте, какие вещи будут Вам нужны на пикнике, 
+            заниесите их в список и отмечайте уже собранные
+        </p>
         <div class="content">
             <div class="std-list">
                 <h3>Стандартный список</h3>
