@@ -16,6 +16,9 @@ function generate_my_element(bin_link, name) {
 }
 
 
+
+var my_list = [];
+
 function show_hide_category(btn, name) {
     let category = document.getElementById(name);
     let button = document.getElementById(btn);
@@ -66,6 +69,8 @@ function add_element_from_input(bin_link) {
     text = text.replace(/[,:"]/g, '');
     
     container.innerHTML += generate_my_element(bin_link, text);
+    my_list.push($(generate_my_element(bin_link, text)));
+    
     container.scrollTo({
         top: container.scrollHeight,
         behavior : 'smooth'
@@ -79,7 +84,8 @@ function del_element(name) {
     for (let i=0; i<list.length; i++) {
         let val = list[i].getAttribute('data-content');
         if (val == name) {
-            list[i].remove()
+            list[i].remove();
+            my_list[i].remove();
         }
     }
 }
@@ -112,10 +118,12 @@ function select(name) {
                 list[i].classList.remove('ready-item');
                 list[i].children[0].children[0].classList.remove('ready-trash');
                 list[i].children[1].children[0].classList.remove('ready-check');
+                list[i].children[1].children[0].innerHTML = '';
             } else {
                 list[i].classList.add('ready-item');
                 list[i].children[0].children[0].classList.add('ready-trash');
                 list[i].children[1].children[0].classList.add('ready-check');
+                list[i].children[1].children[0].innerHTML = '<img src="imgs/check.svg" width="20px">'
             }
         
         }
@@ -126,9 +134,44 @@ function select(name) {
 function add_element_from_std(bin_link, name) {
     let container = document.getElementsByClassName('my-list-content')[0];
     container.innerHTML += generate_my_element(bin_link, name);
+    my_list.push($(generate_my_element(bin_link, name)));
 
     container.scrollTo({
         top: container.scrollHeight,
         behavior : 'smooth'
     });
+}
+
+
+function find_element() {
+    
+    let txt = document.getElementById('find-input');
+    // console.log(txt);
+    txt = txt.value;
+    // console.log(txt);
+    let container = document.getElementsByClassName('my-list-content')[0];
+
+    let els = [];
+    // for (let i=0; i<my_list.length(); i++) {
+    //     if (mylist[i].children[0].children[1].textContent.includes(txt)) {
+    //         els.push(mylist[i]);
+    //     }
+    // }
+
+    // console.log(my_list);
+    my_list.forEach(el => {
+        // console.log('>>', el[0], txt);
+        // console.log('-->>', el[0].children[0], txt);
+        if (el[0].children[0].children[1].textContent.toLowerCase().includes(txt)) {
+            els.push(el[0]);
+        }
+    });
+
+    // console.log(els);
+
+    container.innerHTML = '';
+    els.forEach(el => {
+        container.appendChild(el);
+    });
+
 }

@@ -58,6 +58,7 @@ function init() {
         let icon = (saved[key] == undefined)
             ? 'https://cdn-icons-png.flaticon.com/512/5868/5868069.png'
             : 'https://cdn-icons-png.flaticon.com/512/252/252025.png';
+            // : './imgs/place_checked.svg';
         let placemark = new ymaps.Placemark(
             [preCoords[1], preCoords[0]],
             {
@@ -181,6 +182,16 @@ function apply_filter() {
     fill_areas();
     init();
     set_on_click_to_placemarks();
+    
+    let count = Object.keys(fdb).length;
+    
+    let error = document.getElementById('error');
+    (count != 0)
+        ? error.classList.add('hidden')
+        : error.classList.remove('hidden')
+
+    let areas_count = document.getElementById('areas-count');
+    areas_count.innerHTML = '<div class="'+((count == 0)?' hidden':'')+'">Было найдено площадок: <b>'+count+'</b></div>';
 
     let body = document.getElementsByClassName('content')[0];
     window.scrollTo({
@@ -192,9 +203,20 @@ function apply_filter() {
 
 
 function fill_areas() {
+    let days = {
+        0:'воскресеньям',
+        1:'понедельникам',
+        2:'вторникам',
+        3:'средам',
+        4:'четвергам',
+        5:'пятницам',
+        6:'субботам',
+    };
+
     let i_date = document.getElementById('i-date').value
     console.log('i_date = ',i_date);
     let day = new Date(i_date).getDay();
+    console.log(day);
     let container = document.getElementById('areas');
     container.innerHTML = '';
     Object.entries(fdb).forEach(([key, el]) => {
@@ -207,11 +229,11 @@ function fill_areas() {
             key, 
             el['Address']+', '+el['NameWinter'],
             `
-            <p>Адрес: `+el['Address']+`</p>
+            <p><b>Адрес:</b> `+el['Address']+`</p>
             <p>`+el['Paid']+`</p>
             <p>`+el['Lighting']+`</p>
             <p>`+el['SurfaceTypeWinter']+`</p>
-            <p>График работы на `+new Date(i_date).toLocaleDateString()+`: `+el['WorkingHoursWinter'][day]['Hours']+`</p>
+            <p>График работы <b>по `+days[day]+`</b>: `+el['WorkingHoursWinter'][day]['Hours']+`</p>
             <p>Телефон: `+el['HelpPhone']+`</p>
             <p>Сайт: <a href='`+el['WebSite']+`'>`+el['WebSite']+`</a></p>
             ` + bottom,

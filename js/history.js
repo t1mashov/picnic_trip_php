@@ -20,7 +20,24 @@ function load_area(id, comment, opened=false) {
     }
 }
 
+
+function edit_comment(id) {
+    container = document.getElementById('form_'+id);
+    console.log(container);
+    container.children[2].classList.remove('hidden');
+    container.children[3].classList.add('hidden');
+    container.children[2].children[1].children[1].classList.remove('hidden');
+}
+function decline(id) {
+    container = document.getElementById('form_'+id);
+    console.log(container);
+    container.children[2].classList.add('hidden');
+    container.children[3].classList.remove('hidden');
+}
+
 function get_area_item(id, comment) {
+    console.log('"'+comment+'"');
+
     return `
     <div class="area-item area-item-hidden" id="`+id+`" onclick="show_hide('`+id+`')">
         <div class="top">
@@ -34,18 +51,32 @@ function get_area_item(id, comment) {
                 <p>`+db[id]['SurfaceTypeWinter']+`</p>
                 <p>Телефон: `+db[id]['HelpPhone']+`</p>
                 <p>Сайт: <a href='`+db[id]['WebSite']+`'>`+db[id]['WebSite']+`</a></p>
-                <div class="trash" onclick="">
-                    <img class="trash-img" src="`+bin+`">
-                </div>
+                <form method="post">
+                <input type="hidden" name="del_id" value="`+id+`">
+                <button type="submit" class="trash" onclick="">
+                    <img src="`+bin+`" class="trash-img">
+                </button>
+                </form>
             </div>
             <div class="comment">
-            <form method="post">
-                <p>Ваш комментарий:</p>
-                <textarea name="comment" class="comment-ta">`+comment+`</textarea>
-                <input type="hidden" name="id" value="`+id+`">
-                <button type="submit" class="remember-btn">Сохранить</button>
+                <form method="post" id="form_`+id+`">
+                    <input type="hidden" name="id" value="`+id+`">
+                    <p>Ваш комментарий:</p>
+
+                    <div class="save-wrap`+((comment != '')?' hidden':'')+`">
+                        <textarea name="comment" class="comment-ta">`+comment+`</textarea>
+                        <div class="save-btns-wrap">
+                            <button type="submit" class="remember-btn">Сохранить</button>
+                            <div class="remember-btn hidden decline" onclick="decline('`+id+`')">Отмена</div>
+                        </div>
+                    </div>
+
+                    <div class="edit-wrap`+((comment == '')?' hidden':'')+`">
+                        <pre name="comment" class="comment-pre">`+comment+`</pre>
+                        <div class="remember-btn" onclick="edit_comment('`+id+`')">Редактировать</div>
+                    <div>
+                </form>
             </div>
-            </form>
         </div>
     </div>`;
 }

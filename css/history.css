@@ -51,6 +51,25 @@
     padding: 3px;
 }
 
+.comment-pre {
+    padding: 5px;
+    color: #ffffff;
+    background-color: #7e7e7e;
+    height: 100px;
+    border-radius: 10px;
+    overflow-y: scroll;
+}
+.comment-pre::-webkit-scrollbar {
+    display: none;
+}
+
+.save-btns-wrap {
+    display: flex;
+}
+.decline {
+    margin-left: 10px;
+}
+
 .desc {
     padding-left: 20px;
 }

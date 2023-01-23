@@ -20,16 +20,20 @@ function area($title, $connect_db, $saved_areas, $reg, $a) {
 </script>
 
 <div class="content">
-    <div class="learn-text">Укажите необходимые параметры поиска площадок для пикника</div>
+    <div class="learn-text">
+        На карте представлены все площадки для пикника города Москвы.
+        Укажите необходимые параметры поиска площадок, подходящих Вам.
+    </div>
+    
     <div class="settings-wrap">
 
         <div class="settings">
             <div class="inp-wrap">
-                <p>Дата похода на пикник</p>
+                <p>Укажите дату похода на пикник</p>
                 <input type="date" class="inp" name="date" id="i-date">
             </div>
             <div class="inp-wrap">
-                <p>Время похода на пикник</p>
+                <p>Укажите время похода на пикник</p>
                 <input type="time" class="inp" name="time" id="i-time">
             </div>
             <script>
@@ -58,7 +62,11 @@ function area($title, $connect_db, $saved_areas, $reg, $a) {
             <div class="map" id="map">
             </div>
 
-            <div class="areas" id="areas">
+            <div class="areas-wrap" id="areas-wrap">
+                <div class="error hidden" id="error">Заданным параметрам не соответствует ни одна площадка в Москве</div>
+                <div class="areas-count" id="areas-count"></div>
+                <div class="areas" id="areas">
+                </div>
             </div>
         </div>
         <div id="res">
@@ -71,6 +79,9 @@ function area($title, $connect_db, $saved_areas, $reg, $a) {
 <script>
     //apply_filter()
     fill_areas()
+    let areas_count = document.getElementById(\'areas-count\');
+    let count = Object.keys(fdb).length;
+    areas_count.innerHTML = \'<div class="\'+((count == 0)?\' hidden\':\'\')+\'">Было найдено площадок: <b>\'+count+\'</b></div>\';
 </script>
     ';
 

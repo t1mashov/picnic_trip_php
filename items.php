@@ -2,57 +2,83 @@
 
 <?php
 function items($title, $items, $my_items) {
+    // foreach ($items as $key => $val) {
+    //     foreach ($val as $el) {
+    //         echo $key.' '.$el.'<br>';
+    //     }
+    // }
+    $my_list = '';
     $main = '
     <script src="js/items.js"></script>
     <form method="post">
         <p class="learn-text">
-            Хорошо продумайте, какие вещи будут Вам нужны на пикнике, 
-            заниесите их в список и отмечайте уже собранные
+            Сборы на пикник – дело хлопотное. 
+            Кто не ловил себя на мысли о том, 
+            чтобы взять все самое необходимое, 
+            а по приезду на место, выяснял, что это важное, 
+            оказывается, оставил дома. 
+        </p>
+        <p class="learn-text">
+            Например, многие забывают такие важные вещи, 
+            как спички, соль, ножи.
+        </p>
+        <p class="learn-text">
+            <b>Чтобы не попасть</b> в подобную ситуацию,
+            заносите вещи, которые хотите взять
+            в список ниже и, при сборе, отмечайте, 
+            которые уже взяли.
         </p>
         <div class="content">
             <div class="std-list">
                 <h3>Стандартный список</h3>
                 <div class="std-list-content">';
 
-        //{% for key, val in items.items %}
         foreach ($items as $key => $val) {
-                        $main .= '<div class="category-name">
-                            <div><b>'.$key.'</b></div>
-                            <div class="show-hide" id="btn_'.$key.'" onclick="show_hide_category(\'btn_'.$key.'\', \'container_'.$key.'\')">
-                                Скрыть
-                            </div>
+            $main.='<div class="category-name">
+                        <div><b>'.$key.'</b></div>
+                        <div class="show-hide" id="btn_'.$key.'" onclick="show_hide_category(\'btn_'.$key.'\', \'container_'.$key.'\')">
+                            Скрыть
                         </div>
-                        <div id="container_'.$key.'">';
+                    </div>
+                    <div id="container_'.$key.'">';
         
-            //{% for el in val %}
             foreach ($val as $el) {
-                            $main .= '<div class="std-item" data-content="'.$el.'">
-                                <div class="item-name">'.$el.'</div>
-                                <div class="send-to-my-list" onclick="add_element_from_std(\'imgs/trash.svg\', \''.$el.'\')">&gt&gt</div>
-                            </div>';
-            //{% endfor %}
+                $main.='<div class="std-item" data-content="'.$el.'">
+                            <div class="item-name">'.$el.'</div>
+                            <div class="send-to-my-list" onclick="add_element_from_std(\'imgs/trash.svg\', \''.$el.'\')">&gt&gt</div>
+                        </div>';
+            
             }
-                        $main .= '</div>';
+            $main.='</div>';
                         
-        //{% endfor %}
         }
-                $main .= '</div>
+        $main.='</div>
             </div>
             <div class="my-list">
                 <h3>Мой список</h3>
-                <div class="my-list-content">';
-                    
-        //{% for el in my_items %}
+                <div class="my-list-content-wrap">
+                    <div class="find">
+                        <input class="find-input" placeholder="Поиск" oninput="find_element()" id="find-input">
+                    </div>
+                    <div class="my-list-content">
+';   
+
+        $my_list = '<script>
+            my_list = [
+        ';
+
         foreach ($my_items as $el) {
             $ready_item = '';
             $ready_trash = '';
             $ready_check = '';
+            $check_img = '';
             if ($el['checked']) {
                 $ready_item = 'ready-item';
                 $ready_trash = 'ready-trash';
                 $ready_check = 'ready-check';
+                $check_img = '<img src="imgs/check.svg" width="20px">';
             }
-                    $main .= '<div class="my-item '.$ready_item.'" data-content="'.$el['name'].'">
+                    $el = '<div class="my-item '.$ready_item.'" data-content="'.$el['name'].'">
                         <div class="my-item-w1">
                             <div class="trash '.$ready_trash.'" onclick="del_element(\''.$el['name'].'\')">
                                 <img class="trash-img" src="imgs/trash.svg">
@@ -60,12 +86,24 @@ function items($title, $items, $my_items) {
                             <div class="item-name">'.$el['name'].'</div>
                         </div>
                         <div class="my-item-w2" onclick="select(\''.$el['name'].'\')">
-                            <div class="check '.$ready_check.'"></div>
+                            <div class="check '.$ready_check.'">
+                                '.$check_img.'
+                            </div>
                         </div>
                     </div>';
+                    $main .= $el;
+                    $my_list .= "`".$el."`, ";
         }
-        //{% endfor %}
-                $main .= '</div>
+        $my_list .= '
+            ];
+        for (let i=0; i<my_list.length; i++) {
+            my_list[i] = $(my_list[i]);
+        }
+        </script>
+        ';
+        
+            $main .= '</div>
+                </div>
                 <div class="green-btn add-el" id="add-el-btn" onclick="add_element()">Добавить элемент</div>
                 <button class="green-btn add-el" id="save-page-btn" onfocus="on_save_btn()">Сохранить изменения</button>
                 <div class="hidden" id="add-el-container">
@@ -81,6 +119,9 @@ function items($title, $items, $my_items) {
     
         </div>
     </form>
+
+    '.$my_list.'
+
     ';
 
     return base(
@@ -116,7 +157,7 @@ if (isset($_POST['items'])) {
         array_push($mas, explode(':', $items[$i]));
     }
 
-    if ($mas[0][0] != '') {
+    if (@$mas[0][0] != '') {
         $add_items = "
             insert into my_item (name, checked, user_id)
             values
@@ -154,7 +195,7 @@ $items_dict = array();
 
 foreach($table as $row) {
     if ( !isset($items_dict[$row[0]])) $items_dict[$row[0]] = array();
-    else array_push($items_dict[$row[0]], $row[1]);
+    array_push($items_dict[$row[0]], $row[1]);
 }
 
 

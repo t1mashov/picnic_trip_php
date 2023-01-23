@@ -67,7 +67,7 @@
     order: 1;
 }
 
-.areas {
+.areas-wrap {
     /* font-size: 10px; */
     width: 40vw;
     height: 40vw;
@@ -76,8 +76,14 @@
     border-radius: 15px;
     margin: 10px;
     order: 2;
+}
 
+.areas {
     overflow-y: scroll;
+    height: 37vw;
+}
+.areas::-webkit-scrollbar {
+    display: none;
 }
 
 [class*="map"], [class*="inner-panes"] {
@@ -121,6 +127,10 @@
     color: #ff8800;
 }
 
+.areas-count {
+    padding: 10px;
+}
+
 
 .check-btn {
     cursor: pointer;
@@ -156,6 +166,11 @@
 
 .saved {
     background-color: #fffbe4;
+}
+
+.error {
+    color: #ff0000;
+    text-align: center;
 }
 
 

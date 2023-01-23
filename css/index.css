@@ -77,6 +77,15 @@
     text-align: center;
 }
 
+.link-open-data {
+    text-decoration: none;
+    text-align: center;
+    color: #0365ba;
+}
+.link-open-data:hover {
+    color: #359bf4;
+}
+
 
 @media (orientation: portrait) {
     .right {

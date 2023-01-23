@@ -7,13 +7,16 @@ function index($title, $error_message) {
 <div class="content">
     <div class="left">
         <p>
-            С помощью нашего приложения Вы сможете найти площадку,
-            подходящую Вам по всем параметрам, подготовиться к походу,
+            С помощью нашего приложения Вы сможете <b>найти</b> площадку,
+            подходящую Вам по всем параметрам, <b>подготовиться</b> к походу,
             собрать необходимые вещи и ничего не забыть
         </p>
         <p>
-            Зарегистрируйтесь или войдите в аккаунт, чтобы получить полный доступ к функционалу приложения
+            Зарегистрируйтесь или войдите в аккаунт, чтобы получить <b>полный доступ</b> к функционалу приложения
         </p>
+        <p><a class="link-open-data" href="https://data.mos.ru/opendata/7708308010-mesta-dlya-piknika">
+            На сайте используются данные из Портала открытых данных города Москвы
+        </a></p>
         <div class="no-reg-wrap">
             <a href="area.php?guest"><button class="green-btn">Продолжить без регистрации</button></a>
         </div>
@@ -65,7 +68,7 @@ $title = 'Picnic Trip - Authorization';
 session_start();
 
 if (isset($_POST['enter'])) {
-    $login = $_POST['name'];
+    $login = str_replace("'", '`', $_POST['name']);
     $password = $_POST['password'];
     $password_hash = md5($password);
 

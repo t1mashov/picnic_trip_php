@@ -67,6 +67,14 @@ if (isset($_SESSION['save_area'])) {
     unset($_SESSION['save_area']);
 }
 
+if (isset($_POST['del_id'])) {
+    mysqli_query($connect, "
+        delete from history
+        where area_id=".$_POST['del_id']." and user_id=".$user_id."
+    ");
+}
+
+
 $res = mysqli_query($connect, "
     select area_id, comment
     from history
