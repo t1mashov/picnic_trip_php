@@ -165,7 +165,6 @@ function filter_db() {
                   params['HasToilet'] && db[i]['HasToilet']=='нет' ||
                   params['HasWifi'] && db[i]['HasWifi']=='нет' ||
                   params['HasFirstAidPost'] && db[i]['HasFirstAidPost']=='нет')) {
-                console.log(1111);
                 fdb[db[i]['global_id']] = db[i]
             }
         }

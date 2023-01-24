@@ -61,7 +61,7 @@ function get_area_item(id, comment) {
             <div class="comment">
                 <form method="post" id="form_`+id+`">
                     <input type="hidden" name="id" value="`+id+`">
-                    <p>Ваш комментарий:</p>
+                    <p>Ваша заметка:</p>
 
                     <div class="save-wrap`+((comment != '')?' hidden':'')+`">
                         <textarea name="comment" class="comment-ta">`+comment+`</textarea>
