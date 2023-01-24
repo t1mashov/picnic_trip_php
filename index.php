@@ -23,7 +23,7 @@ function index($title, $error_message) {
     </div>
     <div class="right">
         <form method="post">
-            <h3>Вход</h3>
+            <h3>Вход / Регистрация</h3>
             <table>
             <tr>
                 <td class="td-name">Логин:</td>
