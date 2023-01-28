@@ -144,34 +144,18 @@ function add_element_from_std(bin_link, name) {
 
 
 function find_element() {
-    
-    let txt = document.getElementById('find-input');
-    // console.log(txt);
-    txt = txt.value;
-    // console.log(txt);
+    let txt = document.getElementById('find-input').value;
     let container = document.getElementsByClassName('my-list-content')[0];
-
     let els = [];
-    // for (let i=0; i<my_list.length(); i++) {
-    //     if (mylist[i].children[0].children[1].textContent.includes(txt)) {
-    //         els.push(mylist[i]);
-    //     }
-    // }
-
-    // console.log(my_list);
+    
     my_list.forEach(el => {
-        // console.log('>>', el[0], txt);
-        // console.log('-->>', el[0].children[0], txt);
         if (el[0].children[0].children[1].textContent.toLowerCase().includes(txt)) {
             els.push(el[0]);
         }
     });
 
-    // console.log(els);
-
     container.innerHTML = '';
     els.forEach(el => {
         container.appendChild(el);
     });
-
 }
