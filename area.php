@@ -1,5 +1,6 @@
-
 <?php
+
+session_start();
 
 function area($title, $connect_db, $saved_areas, $reg, $a) {
     $nav = '';
@@ -93,17 +94,13 @@ function area($title, $connect_db, $saved_areas, $reg, $a) {
     );
 }
 ?>
-
-
 <?php
 
-include 'base.php';
-include 'nav.php';
-include 'connect_db.php';
+require 'base.php';
+require 'nav.php';
+require 'connect_db.php';
 
-session_start();
-
-foreach ($_POST as $k => $v) echo $k.' => '.$v.'<br>';
+// foreach ($_POST as $k => $v) echo $k.' => '.$v.'<br>';
 
 $a = 1;
 $title = 'Picnic Trip - Area selection';

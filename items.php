@@ -1,6 +1,7 @@
-
-
 <?php
+
+session_start();
+
 function items($title, $items, $my_items) {
     // foreach ($items as $key => $val) {
     //     foreach ($val as $el) {
@@ -132,15 +133,12 @@ function items($title, $items, $my_items) {
     );
 }
 ?>
-
-
 <?php
 
-include 'base.php';
-include 'nav.php';
-include 'connect_db.php';
+require 'base.php';
+require 'nav.php';
+require 'connect_db.php';
 
-session_start();
 
 $user_id = $_SESSION['uid'];
 $title = 'Picnic Trip - Collecting items';

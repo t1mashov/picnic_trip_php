@@ -1,5 +1,6 @@
-
 <?php
+
+session_start();
 
 function index($title, $error_message) {
 
@@ -54,18 +55,14 @@ function index($title, $error_message) {
     );
 }
 ?>
-
-
 <?php
 
-include 'base.php';
-include 'nav.php';
-include 'connect_db.php';
+require 'base.php';
+require 'nav.php';
+require 'connect_db.php';
 
 $error_message = '';
 $title = 'Picnic Trip - Authorization';
-
-session_start();
 
 if (isset($_POST['enter'])) {
     $login = str_replace("'", '`', $_POST['name']);

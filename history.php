@@ -1,5 +1,6 @@
-
 <?php
+
+session_start();
 
 function history($title, $connect_db, $load_area) {
     $main = '
@@ -28,15 +29,11 @@ function history($title, $connect_db, $load_area) {
 }
 
 ?>
-
-
 <?php
 
-include 'base.php';
-include 'nav.php';
-include 'connect_db.php';
-
-session_start();
+require 'base.php';
+require 'nav.php';
+require 'connect_db.php';
 
 $user_id = $_SESSION['uid'];
 $opened = '';

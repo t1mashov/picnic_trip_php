@@ -1,4 +1,3 @@
-
 <?php
 function nav($a) { // $a = 1 || 2 || 3 || 0
     $a1 = '<a class="nav-btn" href="area.php">Подобрать площадку для пикника</a>';
