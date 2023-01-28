@@ -146,10 +146,10 @@ function add_element_from_std(bin_link, name) {
 function find_element() {
     let txt = document.getElementById('find-input').value;
     let container = document.getElementsByClassName('my-list-content')[0];
+
     let els = [];
-    
     my_list.forEach(el => {
-        if (el[0].children[0].children[1].textContent.toLowerCase().includes(txt)) {
+        if (el[0].children[0].children[1].textContent.toLowerCase().includes(txt.toLowerCase())) {
             els.push(el[0]);
         }
     });
